@@ -67,7 +67,7 @@ FED-SKaiNET is built on modern, open technologies:
 ### Developer Experience
 - Deliver comprehensive onboarding:
   - Getting-started guides
-  - Detailed API documentation
+  - Detailed documentation (API, User Guides, How-Tos)
   - Practical tutorials
 - Offer a simple drop-in library for mobile apps
 - Enable collaborative development via open contributions
