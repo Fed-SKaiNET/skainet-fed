@@ -55,94 +55,45 @@ FED-SKaiNET is built on modern, open technologies:
 
 ---
 
-## 🎯 Project Goals
+## 🧩 Architecture Overview
 
-### Technical Goals
-- Enable **end-to-end Federated Learning on mobile devices**
-- Design a **local training pipeline** optimized for mobile hardware
-- Develop a **client SDK** for secure communication with simulated and real FL hubs
-- Implement production-grade **aggregation algorithms**
-- Provide a **containerized federated training hub**
+```mermaid
+flowchart LR
+    subgraph Devices["Mobile Devices"]
+        subgraph Android["Android"]
+            AApp[Android App]
+            AFED[FED-SKaiNET SDK]
+            ASK[SKaiNET Runtime]
+        end
+        subgraph iOS["iOS"]
+            IApp[iOS App]
+            IFED[FED-SKaiNET SDK]
+            ISK[SKaiNET Runtime]
+        end
+    end
 
-### Developer Experience
-- Deliver comprehensive onboarding:
-  - Getting-started guides
-  - Detailed documentation (API, User Guides, How-Tos)
-  - Practical tutorials
-- Offer a simple drop-in library for mobile apps
-- Enable collaborative development via open contributions
+    subgraph SharedCore["Kotlin Multiplatform Shared Core"]
+        Core["FL logic & client\n(networking, training pipeline)"]
+    end
 
-### Societal Impact
+    subgraph Hub["Federated Learning Hub"]
+        Orchestrator["Orchestrator\n(Flower / OpenFL / FedCast)"]
+        Aggregator["Aggregation Service\n(FedAvg, etc.)"]
+        GlobalModel[Global Model]
+    end
 
-FED-SKaiNET addresses key challenges in today’s AI ecosystem:
+    AApp --> AFED --> ASK
+    IApp --> IFED --> ISK
 
-- **Data privacy & security:**  
-  User data stays on-device — no cloud transfer, no central collection.
+    AFED --- Core
+    IFED --- Core
 
-- **Decentralization of AI:**  
-  Reduces dependency on large centralized AI platforms and empowers smaller teams and independent developers.
+    ASK -->|local training\non-device data| U1[(Model Update)]
+    ISK -->|local training\non-device data| U2[(Model Update)]
 
-- **Transparency & Open Access:**  
-  Fully open-source tooling for mobile AI ensures fair access to cutting-edge technology.
+    U1 -->|secure, anonymized| Orchestrator
+    U2 -->|secure, anonymized| Orchestrator
 
-- **Digital sovereignty:**  
-  Users retain control over their data and how it contributes to model training.
-
----
-
-## 🗺️ Roadmap
-
-### Phase 1 – Federated Learning on Device
-- Design a concept for AI code sharing with federated learning
-- Identify and implement missing FL components
-- Develop the FED-SKaiNET client for data exchange with an FL hub
-- Create UI/UX concepts for AI-powered mobile data entry
-
-### Phase 2 – Production Library
-- Implement aggregation algorithms
-- Develop the local training pipeline
-- Setup and document the **containerized FL hub**
-- Create end-to-end prototypes on iOS and Android simulators
-
-### Phase 3 – Validation & Community
-- Integrate FED-SKaiNET into a real-world firefighting mobile app
-- Conduct moderated usability tests with practitioners
-- Iterate based on live feedback
-- Grow the community via:
-  - Meetups
-  - Conference talks
-  - Technical blog posts
-
----
-
-## 🤝 Contributing
-
-FED-SKaiNET is developed fully in the open.  
-We welcome contributions of all kinds:
-
-- Issues & feature requests
-- Documentation improvements
-- Code contributions
-- Tutorials and examples
-
-All development takes place on GitHub and adheres to standard open-source contribution workflows.
-
----
-
-## 📄 License
-
-This project is published under an open-source, industry-friendly license (e.g., **MIT License**).  
-See the `LICENSE` file for details.
-
----
-
-## 🔗 Related Projects
-
-- **SKaiNET** — Machine Learning on Device Framework  
-  https://github.com/sk-ai-net/SKaiNET
-
----
-
-## 🌟 Vision
-
-FED-SKaiNET aims to make **mobile AI fair, private, and decentralized** — empowering developers to build powerful intelligent applications without compromising user privacy or digital sovereignty.
+    Orchestrator --> Aggregator --> GlobalModel
+    GlobalModel -->|updated weights| AFED
+    GlobalModel -->|updated weights| IFED
