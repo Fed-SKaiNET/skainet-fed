@@ -2,9 +2,9 @@
 
 ## Overview
 
-This design document outlines the implementation of federated learning (FL) strategies in Kotlin Multiplatform using SKaiNET's Tensor API. The system provides a mathematical foundation for various federated learning algorithms, with the primary deliverable being "The Federated Calculator" MVP featuring a robust FedAvg implementation.
+This design document outlines the implementation of federated learning (FL) strategies in Kotlin Multiplatform using SKaiNET's Tensor API and Neural Network DSL. The system provides a mathematical foundation for various federated learning algorithms, with the primary deliverable being "The Federated Calculator" MVP featuring a robust FedAvg implementation.
 
-The architecture leverages SKaiNET's compositional tensor design, separating data representation (`TensorData<T, V>`) from mathematical operations (`TensorOps`), enabling cross-platform consistency and backend flexibility.
+The architecture leverages SKaiNET's compositional design, separating data representation (`TensorData<T, V>`) from mathematical operations (`TensorOps`), and utilizing the Model/Module architecture for neural network management. This enables cross-platform consistency, backend flexibility, and seamless integration with SKaiNET's neural network ecosystem.
 
 ## Architecture
 
@@ -33,18 +33,26 @@ graph TB
         TO[TensorOps]
         TD[TensorData]
         T[Tensor<T,V>]
+        M[Model<T,V,I,O>]
+        MOD[Module<T,V>]
+        MN[ModuleNode]
     end
     
     FLS --> PM
     FLS --> MO
     FLS --> MA
+    FLS --> M
     PM --> T
+    PM --> MOD
     MO --> TO
     MA --> TO
     SM --> TD
     T --> TD
     T --> TO
     TO --> EC
+    M --> MOD
+    MOD --> MN
+    MOD --> T
 ```
 
 ### Strategy Execution Flow
@@ -54,13 +62,17 @@ sequenceDiagram
     participant Server
     participant Strategy
     participant ParameterManager
+    participant Model
+    participant Module
     participant TensorOps
     participant Client
     
     Server->>Strategy: initializeGlobalParameters()
-    Strategy->>ParameterManager: createInitialState()
-    ParameterManager->>TensorOps: zeros/randn operations
-    TensorOps-->>Strategy: initial tensors
+    Strategy->>Model: create(ctx)
+    Model->>Module: instantiate with parameters
+    Module->>TensorOps: initialize weights/biases
+    TensorOps-->>Strategy: initialized module
+    Strategy->>ParameterManager: extractParameters(module)
     
     loop Federated Learning Round
         Server->>Strategy: prepareClientUpdate(round, globalParams)
@@ -74,6 +86,7 @@ sequenceDiagram
         Strategy->>TensorOps: weighted averaging operations
         TensorOps-->>Strategy: aggregated tensors
         Strategy->>ParameterManager: updateGlobalState()
+        Strategy->>Module: updateParameters(aggregatedTensors)
     end
 ```
 
@@ -84,11 +97,11 @@ sequenceDiagram
 ```kotlin
 interface FederatedStrategy {
     /**
-     * Initialize global model parameters
+     * Initialize global model parameters from a SKaiNET Model instance
      */
     suspend fun initializeGlobalParameters(
         ctx: ExecutionContext,
-        modelShape: ModelShape
+        model: Model<FP32, Float, *, *>
     ): GlobalParameters
     
     /**
@@ -126,7 +139,7 @@ interface FederatedStrategy {
 
 ```kotlin
 /**
- * Represents global model parameters as SKaiNET tensors
+ * Represents global model parameters as SKaiNET tensors extracted from Module
  */
 data class GlobalParameters(
     val weights: Map<String, Tensor<FP32, Float>>,
@@ -153,19 +166,6 @@ data class ClientResult(
     val trainingLoss: Float,
     val strategySpecificData: Map<String, Tensor<FP32, Float>> = emptyMap()
 )
-
-/**
- * Model architecture definition
- */
-data class ModelShape(
-    val layers: List<LayerShape>
-)
-
-data class LayerShape(
-    val name: String,
-    val shape: Shape,
-    val dtype: KClass<out DType>
-)
 ```
 
 ### Parameter Manager
@@ -177,22 +177,64 @@ class ParameterManager(private val ctx: ExecutionContext) {
     private val strategyBuffers = mutableMapOf<String, Tensor<FP32, Float>>()
     
     /**
-     * Initialize global parameters with specified shapes
+     * Initialize global parameters from a SKaiNET Model instance
      */
-    suspend fun initializeParameters(modelShape: ModelShape): GlobalParameters {
-        val weights = mutableMapOf<String, Tensor<FP32, Float>>()
+    suspend fun initializeParameters(model: Model<FP32, Float, *, *>): GlobalParameters {
+        val module = model.create(ctx)
+        val weights = extractParametersFromModule(module)
         
-        modelShape.layers.forEach { layer ->
-            when (layer.name.contains("weight")) {
-                true -> weights[layer.name] = ctx.tensor(FP32::class) {
-                    shape(layer.shape) { randn(mean = 0f, std = 0.1f) }
-                }
-                false -> weights[layer.name] = ctx.zeros(layer.shape, FP32::class)
+        globalState.clear()
+        globalState.putAll(weights)
+        return GlobalParameters(weights, round = 0)
+    }
+    
+    /**
+     * Extract parameters from a SKaiNET Module using ModuleNode interface
+     */
+    private fun extractParametersFromModule(module: Module<FP32, Float>): Map<String, Tensor<FP32, Float>> {
+        val parameters = mutableMapOf<String, Tensor<FP32, Float>>()
+        
+        // Extract parameters from current module
+        module.params.forEach { param ->
+            parameters[param.name] = param.value as Tensor<FP32, Float>
+        }
+        
+        // Recursively extract from child modules
+        module.children.forEach { child ->
+            val childParams = extractParametersFromModule(child as Module<FP32, Float>)
+            childParams.forEach { (name, tensor) ->
+                parameters["${child.name}.$name"] = tensor
             }
         }
         
-        globalState.putAll(weights)
-        return GlobalParameters(weights, round = 0)
+        return parameters
+    }
+    
+    /**
+     * Update Module parameters with new tensor values
+     */
+    suspend fun updateModuleParameters(
+        module: Module<FP32, Float>,
+        newParameters: Map<String, Tensor<FP32, Float>>
+    ) {
+        // Update parameters in current module
+        module.params.forEach { param ->
+            newParameters[param.name]?.let { newValue ->
+                // Update parameter tensor data
+                param.value = newValue
+            }
+        }
+        
+        // Recursively update child modules
+        module.children.forEach { child ->
+            val childModule = child as Module<FP32, Float>
+            val childParams = newParameters.filterKeys { it.startsWith("${child.name}.") }
+                .mapKeys { it.key.removePrefix("${child.name}.") }
+            
+            if (childParams.isNotEmpty()) {
+                updateModuleParameters(childModule, childParams)
+            }
+        }
     }
     
     /**

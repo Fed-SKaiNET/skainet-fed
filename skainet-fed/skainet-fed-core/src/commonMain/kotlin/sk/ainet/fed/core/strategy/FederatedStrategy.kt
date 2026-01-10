@@ -1,6 +1,8 @@
 package sk.ainet.fed.core.strategy
 
 import sk.ainet.fed.core.types.ExecutionContext
+import sk.ainet.fed.core.types.Model
+import sk.ainet.fed.core.types.FP32
 import sk.ainet.fed.core.data.*
 
 /**
@@ -19,19 +21,20 @@ import sk.ainet.fed.core.data.*
 public interface FederatedStrategy {
     
     /**
-     * Initialize global model parameters using the specified model architecture.
+     * Initialize global model parameters from a SKaiNET Model instance.
      * 
-     * This method creates the initial state of the federated model that will be
-     * shared across all clients. The initialization should be appropriate for the
-     * specific strategy and model architecture.
+     * This method creates the initial state of the federated model by instantiating
+     * the provided SKaiNET Model and extracting its parameters. The Model provides
+     * the complete neural network definition including architecture, parameter shapes,
+     * and initialization logic.
      * 
-     * @param ctx SKaiNET execution context for tensor operations
-     * @param modelShape Definition of the model architecture and parameter shapes
-     * @return Initial global parameters with appropriate tensor values
+     * @param ctx SKaiNET execution context for tensor operations and model instantiation
+     * @param model SKaiNET Model instance defining the neural network architecture
+     * @return Initial global parameters extracted from the instantiated model
      */
     public suspend fun initializeGlobalParameters(
         ctx: ExecutionContext,
-        modelShape: ModelShape
+        model: Model<FP32, Float, *, *>
     ): GlobalParameters
     
     /**

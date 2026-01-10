@@ -13,6 +13,9 @@ This document specifies the requirements for implementing federated learning (FL
 - **StrategyUpdate**: Mathematical state and instructions prepared for client updates
 - **ExecutionContext**: SKaiNET's execution environment for tensor operations
 - **TensorData**: Serializable representation of tensor information for cross-device exchange
+- **Model**: SKaiNET's high-level descriptor and lifecycle manager for neural networks
+- **Module**: SKaiNET's actual implementation of neural network layers with parameters and forward logic
+- **ModuleNode**: Interface for programmatic traversal of module hierarchy and parameter access
 
 ## Requirements
 
@@ -22,11 +25,12 @@ This document specifies the requirements for implementing federated learning (FL
 
 #### Acceptance Criteria
 
-1. THE FederatedStrategy SHALL define initializeGlobalParameters method for generating initial model state
+1. THE FederatedStrategy SHALL define initializeGlobalParameters method for generating initial model state from SKaiNET Model instances
 2. THE FederatedStrategy SHALL define prepareClientUpdate method for preparing mathematical state sent to clients
 3. THE FederatedStrategy SHALL define aggregateClientUpdates method for mathematical aggregation of client results
 4. THE FederatedStrategy SHALL define evaluateGlobalModel method for aggregating evaluation metrics
 5. WHEN any strategy method is called, THE FederatedStrategy SHALL use only SKaiNET TensorOps for computations
+6. THE FederatedStrategy SHALL work with SKaiNET Model instances rather than requiring explicit ModelShape definitions
 
 ### Requirement 2: FedAvg Base Implementation
 
@@ -36,9 +40,10 @@ This document specifies the requirements for implementing federated learning (FL
 
 1. THE FedAvg_Strategy SHALL implement weighted averaging of client model updates
 2. WHEN aggregating client updates, THE FedAvg_Strategy SHALL compute weighted mean using client sample sizes
-3. THE FedAvg_Strategy SHALL maintain global parameters as SKaiNET Tensor objects
-4. WHEN initializing global parameters, THE FedAvg_Strategy SHALL generate appropriate tensor shapes and values
+3. THE FedAvg_Strategy SHALL maintain global parameters as SKaiNET Tensor objects extracted from Module parameters
+4. WHEN initializing global parameters, THE FedAvg_Strategy SHALL use SKaiNET Model.create() to instantiate Module with appropriate parameters
 5. THE FedAvg_Strategy SHALL produce bit-perfect results consistent with NumPy reference implementations
+6. THE FedAvg_Strategy SHALL extract and aggregate parameters from SKaiNET Module instances using ModuleNode interface
 
 ### Requirement 3: Parameter and State Management
 
@@ -46,11 +51,12 @@ This document specifies the requirements for implementing federated learning (FL
 
 #### Acceptance Criteria
 
-1. THE ParameterManager SHALL represent all model weights using SKaiNET Tensor objects
+1. THE ParameterManager SHALL represent all model weights using SKaiNET Tensor objects extracted from Module parameters
 2. THE ParameterManager SHALL track current round number across strategy executions
 3. WHEN storing historical tensors, THE ParameterManager SHALL maintain previous global parameters
 4. THE ParameterManager SHALL manage strategy-specific buffers for advanced algorithms
 5. WHEN accessing stored parameters, THE ParameterManager SHALL ensure thread-safe operations
+6. THE ParameterManager SHALL integrate with SKaiNET Module hierarchy for parameter extraction and updates
 
 ### Requirement 4: Mathematical Operations Support
 

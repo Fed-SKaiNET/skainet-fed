@@ -133,6 +133,15 @@ public final class sk/ainet/fed/core/types/FP32 : sk/ainet/fed/core/types/DType 
 	public fun <init> ()V
 }
 
+public abstract interface class sk/ainet/fed/core/types/Model {
+}
+
+public abstract interface class sk/ainet/fed/core/types/Module {
+}
+
+public abstract interface class sk/ainet/fed/core/types/ModuleNode {
+}
+
 public final class sk/ainet/fed/core/types/Shape {
 	public static final field Companion Lsk/ainet/fed/core/types/Shape$Companion;
 	public fun <init> ([I)V
