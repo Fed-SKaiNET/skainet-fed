@@ -1,7 +1,11 @@
 package sk.ainet.fed.core.strategy
 
+import sk.ainet.context.DirectCpuExecutionContext
 import sk.ainet.fed.core.types.*
 import sk.ainet.fed.core.data.*
+import sk.ainet.lang.tensor.Shape
+import sk.ainet.lang.nn.Module
+import sk.ainet.lang.model.Model
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -12,25 +16,37 @@ import kotlin.test.assertTrue
  */
 class FederatedStrategyTest {
     
-    /**
-     * Create a mock ExecutionContext for testing purposes.
-     */
-    private fun createMockExecutionContext(): ExecutionContext {
-        return object : ExecutionContext {}
-    }
+    private fun createExecutionContext(): ExecutionContext = DirectCpuExecutionContext()
+
     
-    /**
-     * Create a mock Model for testing purposes.
-     */
     private fun createMockModel(): Model<FP32, Float, *, *> {
-        return object : Model<FP32, Float, Any, Any> {}
+        return object : Model<FP32, Float, Any, Any> {
+            override fun create(executionContext: ExecutionContext): Module<FP32, Float> {
+                return object : Module<FP32, Float>() {
+                    override fun forward(input: Tensor<FP32, Float>, ctx: ExecutionContext): Tensor<FP32, Float> = input
+                    override val modules: List<Module<FP32, Float>> = emptyList()
+                    override val name: String = "mock"
+                }
+            }
+            override suspend fun calculate(module: Module<FP32, Float>, inputValue: Any, executionContext: ExecutionContext, reportProgress: suspend (Int, Int, String?) -> Unit): Any = inputValue
+            override fun modelCard(): sk.ainet.lang.model.ModelCard = TODO()
+        }
     }
     
     /**
      * Create a mock Tensor for testing purposes.
      */
     private fun createMockTensor(): Tensor<FP32, Float> {
-        return object : Tensor<FP32, Float> {}
+        return object : Tensor<FP32, Float> {
+            override val data: TensorData<FP32, Float> = object : TensorData<FP32, Float> {
+                override val shape: Shape = Shape(2, 2)
+                override fun get(indices: IntArray): Float = 1.0f
+                override fun set(indices: IntArray, value: Float) {}
+            }
+            override val dtype: kotlin.reflect.KClass<FP32> = FP32::class
+            override val ops: TensorOps get() = TODO()
+            override val shape: Shape = Shape(2, 2)
+        }
     }
     
     /**
@@ -42,7 +58,7 @@ class FederatedStrategyTest {
         // Verify that the interface has all required methods by checking we can reference them
         // This is a compile-time check that the interface has the expected structure
         
-        val mockCtx = createMockExecutionContext()
+        val mockCtx = createExecutionContext()
         val mockModel = createMockModel()
         val mockTensor = createMockTensor()
         
@@ -106,7 +122,7 @@ class FederatedStrategyTest {
      */
     @Test
     fun testSKaiNETModelIntegration() {
-        val mockCtx = createMockExecutionContext()
+        val mockCtx = createExecutionContext()
         val mockModel = createMockModel()
         val mockTensor = createMockTensor()
         
@@ -294,20 +310,20 @@ class FederatedStrategyTest {
         // Test LayerShape creation
         val layerShape = LayerShape(
             name = "dense1.weight",
-            shape = Shape.of(10, 5),
+            shape = Shape(10, 5),
             dtype = FP32::class
         )
         val modelShape = ModelShape(listOf(layerShape))
         
         assertEquals("dense1.weight", layerShape.name)
-        assertEquals(Shape.of(10, 5), layerShape.shape)
+        assertEquals(Shape(10, 5), layerShape.shape)
         assertEquals(FP32::class, layerShape.dtype)
         assertEquals(1, modelShape.layers.size)
         
         // Test multiple layers
         val biasShape = LayerShape(
             name = "dense1.bias",
-            shape = Shape.of(5),
+            shape = Shape(5),
             dtype = FP32::class
         )
         val multiLayerModel = ModelShape(listOf(layerShape, biasShape))
