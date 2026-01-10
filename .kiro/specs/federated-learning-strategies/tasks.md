@@ -6,7 +6,7 @@ This implementation plan converts the federated learning strategies design into 
 
 ## Tasks
 
-- [ ] 1. Set up core interfaces and data models
+- [x] 1. Set up core interfaces and data models
   - Create FederatedStrategy interface with all required methods
   - Define GlobalParameters, StrategyUpdate, ClientResult, and ModelShape data classes
   - Set up basic project structure in commonMain

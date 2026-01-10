@@ -1,0 +1,154 @@
+public final class sk/ainet/fed/core/data/AggregatedMetrics {
+	public fun <init> (FFIILjava/util/Map;)V
+	public synthetic fun <init> (FFIILjava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun component3 ()I
+	public final fun component4 ()I
+	public final fun component5 ()Ljava/util/Map;
+	public final fun copy (FFIILjava/util/Map;)Lsk/ainet/fed/core/data/AggregatedMetrics;
+	public static synthetic fun copy$default (Lsk/ainet/fed/core/data/AggregatedMetrics;FFIILjava/util/Map;ILjava/lang/Object;)Lsk/ainet/fed/core/data/AggregatedMetrics;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAdditionalMetrics ()Ljava/util/Map;
+	public final fun getClientCount ()I
+	public final fun getMeanAccuracy ()F
+	public final fun getMeanLoss ()F
+	public final fun getTotalSamples ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class sk/ainet/fed/core/data/ClientResult {
+	public fun <init> (Ljava/lang/String;Ljava/util/Map;IFLjava/util/Map;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/util/Map;IFLjava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/util/Map;
+	public final fun component3 ()I
+	public final fun component4 ()F
+	public final fun component5 ()Ljava/util/Map;
+	public final fun copy (Ljava/lang/String;Ljava/util/Map;IFLjava/util/Map;)Lsk/ainet/fed/core/data/ClientResult;
+	public static synthetic fun copy$default (Lsk/ainet/fed/core/data/ClientResult;Ljava/lang/String;Ljava/util/Map;IFLjava/util/Map;ILjava/lang/Object;)Lsk/ainet/fed/core/data/ClientResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClientId ()Ljava/lang/String;
+	public final fun getSampleCount ()I
+	public final fun getStrategySpecificData ()Ljava/util/Map;
+	public final fun getTrainingLoss ()F
+	public final fun getWeightUpdates ()Ljava/util/Map;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class sk/ainet/fed/core/data/EvaluationResult {
+	public fun <init> (Ljava/lang/String;FFILjava/util/Map;)V
+	public synthetic fun <init> (Ljava/lang/String;FFILjava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()I
+	public final fun component5 ()Ljava/util/Map;
+	public final fun copy (Ljava/lang/String;FFILjava/util/Map;)Lsk/ainet/fed/core/data/EvaluationResult;
+	public static synthetic fun copy$default (Lsk/ainet/fed/core/data/EvaluationResult;Ljava/lang/String;FFILjava/util/Map;ILjava/lang/Object;)Lsk/ainet/fed/core/data/EvaluationResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAccuracy ()F
+	public final fun getAdditionalMetrics ()Ljava/util/Map;
+	public final fun getClientId ()Ljava/lang/String;
+	public final fun getLoss ()F
+	public final fun getSampleCount ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class sk/ainet/fed/core/data/GlobalParameters {
+	public fun <init> (Ljava/util/Map;ILjava/util/Map;)V
+	public synthetic fun <init> (Ljava/util/Map;ILjava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/Map;
+	public final fun component2 ()I
+	public final fun component3 ()Ljava/util/Map;
+	public final fun copy (Ljava/util/Map;ILjava/util/Map;)Lsk/ainet/fed/core/data/GlobalParameters;
+	public static synthetic fun copy$default (Lsk/ainet/fed/core/data/GlobalParameters;Ljava/util/Map;ILjava/util/Map;ILjava/lang/Object;)Lsk/ainet/fed/core/data/GlobalParameters;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMetadata ()Ljava/util/Map;
+	public final fun getRound ()I
+	public final fun getWeights ()Ljava/util/Map;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class sk/ainet/fed/core/data/LayerShape {
+	public fun <init> (Ljava/lang/String;Lsk/ainet/fed/core/types/Shape;Lkotlin/reflect/KClass;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lsk/ainet/fed/core/types/Shape;
+	public final fun component3 ()Lkotlin/reflect/KClass;
+	public final fun copy (Ljava/lang/String;Lsk/ainet/fed/core/types/Shape;Lkotlin/reflect/KClass;)Lsk/ainet/fed/core/data/LayerShape;
+	public static synthetic fun copy$default (Lsk/ainet/fed/core/data/LayerShape;Ljava/lang/String;Lsk/ainet/fed/core/types/Shape;Lkotlin/reflect/KClass;ILjava/lang/Object;)Lsk/ainet/fed/core/data/LayerShape;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDtype ()Lkotlin/reflect/KClass;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getShape ()Lsk/ainet/fed/core/types/Shape;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class sk/ainet/fed/core/data/ModelShape {
+	public fun <init> (Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Lsk/ainet/fed/core/data/ModelShape;
+	public static synthetic fun copy$default (Lsk/ainet/fed/core/data/ModelShape;Ljava/util/List;ILjava/lang/Object;)Lsk/ainet/fed/core/data/ModelShape;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getLayers ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class sk/ainet/fed/core/data/StrategyUpdate {
+	public fun <init> (Ljava/util/Map;Ljava/util/Map;I)V
+	public synthetic fun <init> (Ljava/util/Map;Ljava/util/Map;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/Map;
+	public final fun component2 ()Ljava/util/Map;
+	public final fun component3 ()I
+	public final fun copy (Ljava/util/Map;Ljava/util/Map;I)Lsk/ainet/fed/core/data/StrategyUpdate;
+	public static synthetic fun copy$default (Lsk/ainet/fed/core/data/StrategyUpdate;Ljava/util/Map;Ljava/util/Map;IILjava/lang/Object;)Lsk/ainet/fed/core/data/StrategyUpdate;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getGlobalWeights ()Ljava/util/Map;
+	public final fun getRound ()I
+	public final fun getStrategySpecificData ()Ljava/util/Map;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class sk/ainet/fed/core/strategy/FederatedStrategy {
+	public abstract fun aggregateClientUpdates (Lsk/ainet/fed/core/types/ExecutionContext;ILsk/ainet/fed/core/data/GlobalParameters;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun evaluateGlobalModel (Lsk/ainet/fed/core/types/ExecutionContext;ILsk/ainet/fed/core/data/GlobalParameters;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun initializeGlobalParameters (Lsk/ainet/fed/core/types/ExecutionContext;Lsk/ainet/fed/core/data/ModelShape;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun prepareClientUpdate (Lsk/ainet/fed/core/types/ExecutionContext;ILsk/ainet/fed/core/data/GlobalParameters;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class sk/ainet/fed/core/types/DType {
+}
+
+public abstract interface class sk/ainet/fed/core/types/ExecutionContext {
+}
+
+public final class sk/ainet/fed/core/types/FP32 : sk/ainet/fed/core/types/DType {
+	public fun <init> ()V
+}
+
+public final class sk/ainet/fed/core/types/Shape {
+	public static final field Companion Lsk/ainet/fed/core/types/Shape$Companion;
+	public fun <init> ([I)V
+	public final fun component1 ()[I
+	public final fun copy ([I)Lsk/ainet/fed/core/types/Shape;
+	public static synthetic fun copy$default (Lsk/ainet/fed/core/types/Shape;[IILjava/lang/Object;)Lsk/ainet/fed/core/types/Shape;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDimensions ()[I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class sk/ainet/fed/core/types/Shape$Companion {
+	public final fun of ([I)Lsk/ainet/fed/core/types/Shape;
+}
+
+public abstract interface class sk/ainet/fed/core/types/Tensor {
+}
+
