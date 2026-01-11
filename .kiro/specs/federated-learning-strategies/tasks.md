@@ -109,7 +109,7 @@ This implementation plan converts the federated learning strategies design into 
     - Add ByteArray serialization for tensor data
     - _Requirements: 6.1, 6.2, 6.3_
 
-  - [ ]* 7.2 Write property test for round trip serialization
+  - [ ] 7.2 Write property test for round trip serialization
     - **Property 4: Round Trip Serialization**
     - **Validates: Requirements 6.1, 6.2**
 
@@ -118,14 +118,14 @@ This implementation plan converts the federated learning strategies design into 
     - Add size optimization strategies
     - _Requirements: 6.5_
 
-- [ ] 8. Implement MetricAggregator
-  - [ ] 8.1 Create MetricAggregator class
+- [x] 8. Implement MetricAggregator
+  - [x] 8.1 Create MetricAggregator class
     - Implement loss and accuracy aggregation methods
     - Add statistical summary computation (mean, variance, confidence intervals)
     - Handle missing or invalid client results gracefully
     - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5_
 
-  - [ ]* 8.2 Write property test for metric aggregation robustness
+  - [x] 8.2 Write property test for metric aggregation robustness
     - **Property 12: Metric Aggregation Robustness**
     - **Validates: Requirements 7.4, 7.5**
 
