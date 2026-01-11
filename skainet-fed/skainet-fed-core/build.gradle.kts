@@ -43,14 +43,10 @@ kotlin {
             implementation(libs.skainet.lang.core)
             implementation(libs.skainet.lang.models)
             implementation(libs.skainet.model.yolo)
-            implementation(libs.skainet.lang.kan)
             implementation(libs.skainet.compile.core)
             implementation(libs.skainet.backend.cpu)
             implementation(libs.skainet.data.api)
             implementation(libs.skainet.data.simple)
-            implementation(libs.skainet.io.core)
-            implementation(libs.skainet.io.gguf)
-            implementation(libs.skainet.io.onnx)
         }
 
         commonTest.dependencies {
