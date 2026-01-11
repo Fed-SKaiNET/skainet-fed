@@ -75,16 +75,16 @@ public final class sk/ainet/fed/core/data/GlobalParameters {
 }
 
 public final class sk/ainet/fed/core/data/LayerShape {
-	public fun <init> (Ljava/lang/String;Lsk/ainet/fed/core/types/Shape;Lkotlin/reflect/KClass;)V
+	public fun <init> (Ljava/lang/String;Lsk/ainet/lang/tensor/Shape;Lkotlin/reflect/KClass;)V
 	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()Lsk/ainet/fed/core/types/Shape;
+	public final fun component2 ()Lsk/ainet/lang/tensor/Shape;
 	public final fun component3 ()Lkotlin/reflect/KClass;
-	public final fun copy (Ljava/lang/String;Lsk/ainet/fed/core/types/Shape;Lkotlin/reflect/KClass;)Lsk/ainet/fed/core/data/LayerShape;
-	public static synthetic fun copy$default (Lsk/ainet/fed/core/data/LayerShape;Ljava/lang/String;Lsk/ainet/fed/core/types/Shape;Lkotlin/reflect/KClass;ILjava/lang/Object;)Lsk/ainet/fed/core/data/LayerShape;
+	public final fun copy (Ljava/lang/String;Lsk/ainet/lang/tensor/Shape;Lkotlin/reflect/KClass;)Lsk/ainet/fed/core/data/LayerShape;
+	public static synthetic fun copy$default (Lsk/ainet/fed/core/data/LayerShape;Ljava/lang/String;Lsk/ainet/lang/tensor/Shape;Lkotlin/reflect/KClass;ILjava/lang/Object;)Lsk/ainet/fed/core/data/LayerShape;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getDtype ()Lkotlin/reflect/KClass;
 	public final fun getName ()Ljava/lang/String;
-	public final fun getShape ()Lsk/ainet/fed/core/types/Shape;
+	public final fun getShape ()Lsk/ainet/lang/tensor/Shape;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -117,105 +117,36 @@ public final class sk/ainet/fed/core/data/StrategyUpdate {
 }
 
 public final class sk/ainet/fed/core/management/ParameterManager {
-	public fun <init> (Lsk/ainet/fed/core/types/ExecutionContext;)V
+	public fun <init> (Lsk/ainet/context/ExecutionContext;)V
 	public final fun clearBuffers ()V
 	public final fun getCurrentGlobalParameters (I)Lsk/ainet/fed/core/data/GlobalParameters;
 	public final fun getHistoricalState (I)Ljava/util/Map;
 	public final fun getMemoryStats ()Ljava/util/Map;
-	public final fun getOrCreateBuffer (Ljava/lang/String;Lsk/ainet/fed/core/types/Shape;FLkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static synthetic fun getOrCreateBuffer$default (Lsk/ainet/fed/core/management/ParameterManager;Ljava/lang/String;Lsk/ainet/fed/core/types/Shape;FLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public final fun initializeParameters (Lsk/ainet/fed/core/types/Model;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getOrCreateBuffer (Ljava/lang/String;Lsk/ainet/lang/tensor/Shape;FLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun getOrCreateBuffer$default (Lsk/ainet/fed/core/management/ParameterManager;Ljava/lang/String;Lsk/ainet/lang/tensor/Shape;FLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun initializeParameters (Lsk/ainet/lang/model/Model;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun updateGlobalState (Ljava/util/Map;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public final fun updateModuleParameters (Lsk/ainet/fed/core/types/Module;Ljava/util/Map;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun updateModuleParameters (Lsk/ainet/lang/nn/Module;Ljava/util/Map;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public abstract interface class sk/ainet/fed/core/strategy/FederatedStrategy {
-	public abstract fun aggregateClientUpdates (Lsk/ainet/fed/core/types/ExecutionContext;ILsk/ainet/fed/core/data/GlobalParameters;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun evaluateGlobalModel (Lsk/ainet/fed/core/types/ExecutionContext;ILsk/ainet/fed/core/data/GlobalParameters;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun initializeGlobalParameters (Lsk/ainet/fed/core/types/ExecutionContext;Lsk/ainet/fed/core/types/Model;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun prepareClientUpdate (Lsk/ainet/fed/core/types/ExecutionContext;ILsk/ainet/fed/core/data/GlobalParameters;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
-public abstract interface class sk/ainet/fed/core/types/DType {
-}
-
-public abstract interface class sk/ainet/fed/core/types/ExecutionContext {
-	public abstract fun getOps ()Lsk/ainet/fed/core/types/TensorOps;
-}
-
-public final class sk/ainet/fed/core/types/FP32 : sk/ainet/fed/core/types/DType {
-	public fun <init> ()V
-}
-
-public abstract interface class sk/ainet/fed/core/types/Model {
-	public abstract fun create (Lsk/ainet/fed/core/types/ExecutionContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
-public abstract interface class sk/ainet/fed/core/types/Module {
-}
-
-public abstract interface class sk/ainet/fed/core/types/ModuleNode {
-}
-
-public final class sk/ainet/fed/core/types/Shape {
-	public static final field Companion Lsk/ainet/fed/core/types/Shape$Companion;
-	public fun <init> ([I)V
-	public final fun component1 ()[I
-	public final fun copy ([I)Lsk/ainet/fed/core/types/Shape;
-	public static synthetic fun copy$default (Lsk/ainet/fed/core/types/Shape;[IILjava/lang/Object;)Lsk/ainet/fed/core/types/Shape;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getDimensions ()[I
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class sk/ainet/fed/core/types/Shape$Companion {
-	public final fun of ([I)Lsk/ainet/fed/core/types/Shape;
-}
-
-public abstract interface class sk/ainet/fed/core/types/Tensor {
-	public abstract fun getData ()Lsk/ainet/fed/core/types/TensorData;
-	public abstract fun getShape ()Lsk/ainet/fed/core/types/Shape;
-}
-
-public abstract interface class sk/ainet/fed/core/types/TensorData {
-	public abstract fun getScalar ()Ljava/lang/Object;
-	public abstract fun toByteArray ()[B
-}
-
-public abstract interface class sk/ainet/fed/core/types/TensorOps {
-	public abstract fun add (Lsk/ainet/fed/core/types/Tensor;Lsk/ainet/fed/core/types/Tensor;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun addScalar (Lsk/ainet/fed/core/types/Tensor;FLkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun divide (Lsk/ainet/fed/core/types/Tensor;Lsk/ainet/fed/core/types/Tensor;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun full (Lsk/ainet/fed/core/types/Shape;FLkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun mean (Lsk/ainet/fed/core/types/Tensor;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static synthetic fun mean$default (Lsk/ainet/fed/core/types/TensorOps;Lsk/ainet/fed/core/types/Tensor;ZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public abstract fun mulScalar (Lsk/ainet/fed/core/types/Tensor;FLkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun multiply (Lsk/ainet/fed/core/types/Tensor;Lsk/ainet/fed/core/types/Tensor;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun ones (Lsk/ainet/fed/core/types/Shape;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun reshape (Lsk/ainet/fed/core/types/Tensor;Lsk/ainet/fed/core/types/Shape;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun subtract (Lsk/ainet/fed/core/types/Tensor;Lsk/ainet/fed/core/types/Tensor;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun sum (Lsk/ainet/fed/core/types/Tensor;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static synthetic fun sum$default (Lsk/ainet/fed/core/types/TensorOps;Lsk/ainet/fed/core/types/Tensor;ZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public abstract fun zeros (Lsk/ainet/fed/core/types/Shape;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
-public final class sk/ainet/fed/core/types/TensorOps$DefaultImpls {
-	public static synthetic fun mean$default (Lsk/ainet/fed/core/types/TensorOps;Lsk/ainet/fed/core/types/Tensor;ZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public static synthetic fun sum$default (Lsk/ainet/fed/core/types/TensorOps;Lsk/ainet/fed/core/types/Tensor;ZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public abstract fun aggregateClientUpdates (Lsk/ainet/context/ExecutionContext;ILsk/ainet/fed/core/data/GlobalParameters;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun evaluateGlobalModel (Lsk/ainet/context/ExecutionContext;ILsk/ainet/fed/core/data/GlobalParameters;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun initializeGlobalParameters (Lsk/ainet/context/ExecutionContext;Lsk/ainet/lang/model/Model;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun prepareClientUpdate (Lsk/ainet/context/ExecutionContext;ILsk/ainet/fed/core/data/GlobalParameters;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class sk/ainet/fed/core/utils/FederatedMathUtils {
 	public static final field INSTANCE Lsk/ainet/fed/core/utils/FederatedMathUtils;
-	public final fun addProximalTerm (Lsk/ainet/fed/core/types/ExecutionContext;Lsk/ainet/fed/core/types/Tensor;Lsk/ainet/fed/core/types/Tensor;FLkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public final fun clamp (Lsk/ainet/fed/core/types/ExecutionContext;Lsk/ainet/fed/core/types/Tensor;FFLkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public final fun elementwiseSqrt (Lsk/ainet/fed/core/types/ExecutionContext;Lsk/ainet/fed/core/types/Tensor;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public final fun frobeniusNorm (Lsk/ainet/fed/core/types/ExecutionContext;Lsk/ainet/fed/core/types/Tensor;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public final fun hasNaNOrInf (Lsk/ainet/fed/core/types/Tensor;)Z
-	public final fun l2Norm (Lsk/ainet/fed/core/types/ExecutionContext;Lsk/ainet/fed/core/types/Tensor;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public final fun maskedMean (Lsk/ainet/fed/core/types/ExecutionContext;Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public final fun momentumUpdate (Lsk/ainet/fed/core/types/ExecutionContext;Lsk/ainet/fed/core/types/Tensor;Lsk/ainet/fed/core/types/Tensor;FLkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public final fun varianceUpdate (Lsk/ainet/fed/core/types/ExecutionContext;Lsk/ainet/fed/core/types/Tensor;Lsk/ainet/fed/core/types/Tensor;FLkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public final fun weightedAverage (Lsk/ainet/fed/core/types/ExecutionContext;Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun addProximalTerm (Lsk/ainet/context/ExecutionContext;Lsk/ainet/lang/tensor/Tensor;Lsk/ainet/lang/tensor/Tensor;FLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun clamp (Lsk/ainet/context/ExecutionContext;Lsk/ainet/lang/tensor/Tensor;FFLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun elementwiseSqrt (Lsk/ainet/context/ExecutionContext;Lsk/ainet/lang/tensor/Tensor;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun frobeniusNorm (Lsk/ainet/context/ExecutionContext;Lsk/ainet/lang/tensor/Tensor;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun hasNaNOrInf (Lsk/ainet/lang/tensor/Tensor;)Z
+	public final fun l2Norm (Lsk/ainet/context/ExecutionContext;Lsk/ainet/lang/tensor/Tensor;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun maskedMean (Lsk/ainet/context/ExecutionContext;Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun momentumUpdate (Lsk/ainet/context/ExecutionContext;Lsk/ainet/lang/tensor/Tensor;Lsk/ainet/lang/tensor/Tensor;FLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun varianceUpdate (Lsk/ainet/context/ExecutionContext;Lsk/ainet/lang/tensor/Tensor;Lsk/ainet/lang/tensor/Tensor;FLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun weightedAverage (Lsk/ainet/context/ExecutionContext;Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 

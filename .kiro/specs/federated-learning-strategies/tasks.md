@@ -57,26 +57,26 @@ This implementation plan converts the federated learning strategies design into 
     - **Property 9: Historical State Preservation**
     - **Validates: Requirements 3.2, 3.3**
 
-- [ ] 4. Create utility functions for federated learning operations
-  - [ ] 4.1 Create FederatedMathUtils object with weighted averaging
+- [-] 4. Create utility functions for federated learning operations
+  - [x] 4.1 Create FederatedMathUtils object with weighted averaging
     - Implement weightedAverage function using SKaiNET TensorOps directly
     - Add utility functions for L2 norm computation using TensorOps
     - Create helper functions for proximal terms and momentum updates
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 5.1_
 
-  - [ ]* 4.2 Write property test for weighted mean aggregation
+  - [ ] 4.2 Write property test for weighted mean aggregation
     - **Property 6: Weighted Mean Aggregation**
     - **Validates: Requirements 4.2, 7.1**
 
-  - [ ]* 4.3 Write property test for mathematical norm properties
+  - [ ] 4.3 Write property test for mathematical norm properties
     - **Property 5: Mathematical Norm Properties**
     - **Validates: Requirements 4.3**
 
-  - [ ]* 4.4 Write property test for momentum update properties
+  - [ ] 4.4 Write property test for momentum update properties
     - **Property 8: Momentum Update Properties**
     - **Validates: Requirements 4.4, 5.3**
 
-- [ ] 5. Checkpoint - Ensure core infrastructure tests pass
+- [x] 5. Checkpoint - Ensure core infrastructure tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 6. Implement FedAvg strategy (MVP core)
