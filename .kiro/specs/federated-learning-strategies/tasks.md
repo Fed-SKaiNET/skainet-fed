@@ -64,28 +64,28 @@ This implementation plan converts the federated learning strategies design into 
     - Create helper functions for proximal terms and momentum updates
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 5.1_
 
-  - [ ] 4.2 Write property test for weighted mean aggregation
+  - [x] 4.2 Write property test for weighted mean aggregation
     - **Property 6: Weighted Mean Aggregation**
     - **Validates: Requirements 4.2, 7.1**
 
-  - [ ] 4.3 Write property test for mathematical norm properties
+  - [x] 4.3 Write property test for mathematical norm properties
     - **Property 5: Mathematical Norm Properties**
     - **Validates: Requirements 4.3**
 
-  - [ ] 4.4 Write property test for momentum update properties
+  - [x] 4.4 Write property test for momentum update properties
     - **Property 8: Momentum Update Properties**
     - **Validates: Requirements 4.4, 5.3**
 
 - [x] 5. Checkpoint - Ensure core infrastructure tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 6. Implement FedAvg strategy (MVP core)
-  - [ ] 6.1 Create FedAvgStrategy class implementing FederatedStrategy
+- [x] 6. Implement FedAvg strategy (MVP core)
+  - [x] 6.1 Create FedAvgStrategy class implementing FederatedStrategy
     - Implement initializeGlobalParameters using ParameterManager
     - Implement prepareClientUpdate method
     - _Requirements: 2.1, 2.2, 2.3, 2.4_
 
-  - [ ] 6.2 Implement FedAvg aggregateClientUpdates method
+  - [x] 6.2 Implement FedAvg aggregateClientUpdates method
     - Use FederatedMathUtils.weightedAverage for client update aggregation
     - Handle sample size weighting correctly
     - Update global parameters through ParameterManager
@@ -95,7 +95,7 @@ This implementation plan converts the federated learning strategies design into 
     - **Property 1: FedAvg Weighted Averaging Correctness**
     - **Validates: Requirements 2.1, 2.2**
 
-  - [ ] 6.4 Implement evaluateGlobalModel method
+  - [x] 6.4 Implement evaluateGlobalModel method
     - Aggregate evaluation metrics from client results
     - _Requirements: 1.4_
 
