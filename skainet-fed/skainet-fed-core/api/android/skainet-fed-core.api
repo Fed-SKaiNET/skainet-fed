@@ -1,0 +1,152 @@
+public final class sk/ainet/fed/core/data/AggregatedMetrics {
+	public fun <init> (FFIILjava/util/Map;)V
+	public synthetic fun <init> (FFIILjava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun component3 ()I
+	public final fun component4 ()I
+	public final fun component5 ()Ljava/util/Map;
+	public final fun copy (FFIILjava/util/Map;)Lsk/ainet/fed/core/data/AggregatedMetrics;
+	public static synthetic fun copy$default (Lsk/ainet/fed/core/data/AggregatedMetrics;FFIILjava/util/Map;ILjava/lang/Object;)Lsk/ainet/fed/core/data/AggregatedMetrics;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAdditionalMetrics ()Ljava/util/Map;
+	public final fun getClientCount ()I
+	public final fun getMeanAccuracy ()F
+	public final fun getMeanLoss ()F
+	public final fun getTotalSamples ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class sk/ainet/fed/core/data/ClientResult {
+	public fun <init> (Ljava/lang/String;Ljava/util/Map;IFLjava/util/Map;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/util/Map;IFLjava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/util/Map;
+	public final fun component3 ()I
+	public final fun component4 ()F
+	public final fun component5 ()Ljava/util/Map;
+	public final fun copy (Ljava/lang/String;Ljava/util/Map;IFLjava/util/Map;)Lsk/ainet/fed/core/data/ClientResult;
+	public static synthetic fun copy$default (Lsk/ainet/fed/core/data/ClientResult;Ljava/lang/String;Ljava/util/Map;IFLjava/util/Map;ILjava/lang/Object;)Lsk/ainet/fed/core/data/ClientResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClientId ()Ljava/lang/String;
+	public final fun getSampleCount ()I
+	public final fun getStrategySpecificData ()Ljava/util/Map;
+	public final fun getTrainingLoss ()F
+	public final fun getWeightUpdates ()Ljava/util/Map;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class sk/ainet/fed/core/data/EvaluationResult {
+	public fun <init> (Ljava/lang/String;FFILjava/util/Map;)V
+	public synthetic fun <init> (Ljava/lang/String;FFILjava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()I
+	public final fun component5 ()Ljava/util/Map;
+	public final fun copy (Ljava/lang/String;FFILjava/util/Map;)Lsk/ainet/fed/core/data/EvaluationResult;
+	public static synthetic fun copy$default (Lsk/ainet/fed/core/data/EvaluationResult;Ljava/lang/String;FFILjava/util/Map;ILjava/lang/Object;)Lsk/ainet/fed/core/data/EvaluationResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAccuracy ()F
+	public final fun getAdditionalMetrics ()Ljava/util/Map;
+	public final fun getClientId ()Ljava/lang/String;
+	public final fun getLoss ()F
+	public final fun getSampleCount ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class sk/ainet/fed/core/data/GlobalParameters {
+	public fun <init> (Ljava/util/Map;ILjava/util/Map;)V
+	public synthetic fun <init> (Ljava/util/Map;ILjava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/Map;
+	public final fun component2 ()I
+	public final fun component3 ()Ljava/util/Map;
+	public final fun copy (Ljava/util/Map;ILjava/util/Map;)Lsk/ainet/fed/core/data/GlobalParameters;
+	public static synthetic fun copy$default (Lsk/ainet/fed/core/data/GlobalParameters;Ljava/util/Map;ILjava/util/Map;ILjava/lang/Object;)Lsk/ainet/fed/core/data/GlobalParameters;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMetadata ()Ljava/util/Map;
+	public final fun getRound ()I
+	public final fun getWeights ()Ljava/util/Map;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class sk/ainet/fed/core/data/LayerShape {
+	public fun <init> (Ljava/lang/String;Lsk/ainet/lang/tensor/Shape;Lkotlin/reflect/KClass;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lsk/ainet/lang/tensor/Shape;
+	public final fun component3 ()Lkotlin/reflect/KClass;
+	public final fun copy (Ljava/lang/String;Lsk/ainet/lang/tensor/Shape;Lkotlin/reflect/KClass;)Lsk/ainet/fed/core/data/LayerShape;
+	public static synthetic fun copy$default (Lsk/ainet/fed/core/data/LayerShape;Ljava/lang/String;Lsk/ainet/lang/tensor/Shape;Lkotlin/reflect/KClass;ILjava/lang/Object;)Lsk/ainet/fed/core/data/LayerShape;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDtype ()Lkotlin/reflect/KClass;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getShape ()Lsk/ainet/lang/tensor/Shape;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class sk/ainet/fed/core/data/ModelShape {
+	public fun <init> (Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Lsk/ainet/fed/core/data/ModelShape;
+	public static synthetic fun copy$default (Lsk/ainet/fed/core/data/ModelShape;Ljava/util/List;ILjava/lang/Object;)Lsk/ainet/fed/core/data/ModelShape;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getLayers ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class sk/ainet/fed/core/data/StrategyUpdate {
+	public fun <init> (Ljava/util/Map;Ljava/util/Map;I)V
+	public synthetic fun <init> (Ljava/util/Map;Ljava/util/Map;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/Map;
+	public final fun component2 ()Ljava/util/Map;
+	public final fun component3 ()I
+	public final fun copy (Ljava/util/Map;Ljava/util/Map;I)Lsk/ainet/fed/core/data/StrategyUpdate;
+	public static synthetic fun copy$default (Lsk/ainet/fed/core/data/StrategyUpdate;Ljava/util/Map;Ljava/util/Map;IILjava/lang/Object;)Lsk/ainet/fed/core/data/StrategyUpdate;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getGlobalWeights ()Ljava/util/Map;
+	public final fun getRound ()I
+	public final fun getStrategySpecificData ()Ljava/util/Map;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class sk/ainet/fed/core/management/ParameterManager {
+	public fun <init> (Lsk/ainet/context/ExecutionContext;)V
+	public final fun clearBuffers ()V
+	public final fun getCurrentGlobalParameters (I)Lsk/ainet/fed/core/data/GlobalParameters;
+	public final fun getHistoricalState (I)Ljava/util/Map;
+	public final fun getMemoryStats ()Ljava/util/Map;
+	public final fun getOrCreateBuffer (Ljava/lang/String;Lsk/ainet/lang/tensor/Shape;FLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun getOrCreateBuffer$default (Lsk/ainet/fed/core/management/ParameterManager;Ljava/lang/String;Lsk/ainet/lang/tensor/Shape;FLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun initializeParameters (Lsk/ainet/lang/model/Model;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun updateGlobalState (Ljava/util/Map;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun updateModuleParameters (Lsk/ainet/lang/nn/Module;Ljava/util/Map;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class sk/ainet/fed/core/strategy/FederatedStrategy {
+	public abstract fun aggregateClientUpdates (Lsk/ainet/context/ExecutionContext;ILsk/ainet/fed/core/data/GlobalParameters;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun evaluateGlobalModel (Lsk/ainet/context/ExecutionContext;ILsk/ainet/fed/core/data/GlobalParameters;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun initializeGlobalParameters (Lsk/ainet/context/ExecutionContext;Lsk/ainet/lang/model/Model;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun prepareClientUpdate (Lsk/ainet/context/ExecutionContext;ILsk/ainet/fed/core/data/GlobalParameters;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class sk/ainet/fed/core/utils/FederatedMathUtils {
+	public static final field INSTANCE Lsk/ainet/fed/core/utils/FederatedMathUtils;
+	public final fun addProximalTerm (Lsk/ainet/context/ExecutionContext;Lsk/ainet/lang/tensor/Tensor;Lsk/ainet/lang/tensor/Tensor;FLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun clamp (Lsk/ainet/context/ExecutionContext;Lsk/ainet/lang/tensor/Tensor;FFLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun elementwiseSqrt (Lsk/ainet/context/ExecutionContext;Lsk/ainet/lang/tensor/Tensor;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun frobeniusNorm (Lsk/ainet/context/ExecutionContext;Lsk/ainet/lang/tensor/Tensor;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun hasNaNOrInf (Lsk/ainet/lang/tensor/Tensor;)Z
+	public final fun l2Norm (Lsk/ainet/context/ExecutionContext;Lsk/ainet/lang/tensor/Tensor;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun maskedMean (Lsk/ainet/context/ExecutionContext;Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun momentumUpdate (Lsk/ainet/context/ExecutionContext;Lsk/ainet/lang/tensor/Tensor;Lsk/ainet/lang/tensor/Tensor;FLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun varianceUpdate (Lsk/ainet/context/ExecutionContext;Lsk/ainet/lang/tensor/Tensor;Lsk/ainet/lang/tensor/Tensor;FLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun weightedAverage (Lsk/ainet/context/ExecutionContext;Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
