@@ -45,6 +45,7 @@ class FederatedStrategyTest {
             }
             override val dtype: kotlin.reflect.KClass<FP32> = FP32::class
             override val ops: TensorOps get() = TODO()
+            override val gradState: sk.ainet.lang.tensor.GradState<FP32, Float> = sk.ainet.lang.tensor.GradState()
             override val shape: Shape = Shape(2, 2)
         }
     }
